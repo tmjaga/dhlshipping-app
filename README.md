@@ -8,8 +8,9 @@ Demo application to create DHL Shipping using DHL API
 - Vue3
 - Tailwind CSS
 - PrimeVue (form elements)
-- Vuelidate (to frontend Add Package validation)
+- Vuelidate (for frontend Add Package form validation)
 - PDF-Lib (to create pdf document)
+- Vue Toastification (for pop-up messages)
 - Axios
 
 **Backend:**
