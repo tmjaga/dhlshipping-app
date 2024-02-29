@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^5.0.4",
+        "autoprefixer": "^10.4.17",
+        "axios": "^1.6.7",
+        "laravel-vite-plugin": "^1.0.0",
+        "postcss": "^8.4.35",
+        "tailwindcss": "^3.4.1",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@headlessui/vue": "^1.7.19",
+        "@vuelidate/core": "^2.0.3",
+        "@vuelidate/validators": "^2.0.4",
+        "pdf-lib": "^1.17.1",
+        "primevue": "^3.49.1",
+        "vue": "^3.4.19",
+        "vue-loader": "^17.3.1",
+        "vue-toastification": "^2.0.0-rc.5"
+    }
+}
