@@ -10,6 +10,7 @@ Demo application to create DHL Shipping using DHL API
 - PrimeVue (form elements)
 - Vuelidate (to frontend Add Package validation)
 - PDF-Lib (to create pdf document)
+- Axios
 
 **Backend:**
 - Laravel 10
