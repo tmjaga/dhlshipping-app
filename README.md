@@ -18,7 +18,7 @@ Demo application to create DHL Shipping using DHL API
 - Guzzle HTTP Client
 
 ## Requirements
-- PHP >= 8.1 with [composer](https://getcomposer.org/) installed
+- PHP 8.3 with [composer](https://getcomposer.org/) installed
 - [Node.js](https://nodejs.org) >= 19
 
 ## Installation
