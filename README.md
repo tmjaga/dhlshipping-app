@@ -18,7 +18,7 @@ Demo application to create DHL Shipping using DHL API
 - Guzzle HTTP Client
 
 ## Requirements
-- PHP 8.3 with [composer](https://getcomposer.org/) installed
+- PHP 8.1 with [composer](https://getcomposer.org/) installed
 - [Node.js](https://nodejs.org) >= 19
 
 ## Installation
@@ -45,12 +45,26 @@ npm install
 ```bash
 npm run build
 ```
-- Start artisan server for the Laravel backend. Default port is 8000, so you should reach it at http://localhost:8000 or http://127.0.0.1:8000
+## Usage
+
+### With PHP Artisan
+In the project folder run:
 ```bash
 php artisan serve
 ```
-## Usage
 Open http://127.0.0.1:8000 or http://localhost:8000 in your favorite browser.
+
+### With Docker
+In the project folder run:
+```bash
+./vendor/bin/sail up -d
+```
+>If you are using Windows, please make sure to install Docker Desktop.
+>Next, you should ensure that Windows Subsystem for Linux 2 (WSL2) is installed and enabled.
+
+Open http://127.0.0.1 or http://localhost in your favorite browser.
+
+
 
 Fill the Shipping form and add a several Packages (max 3 Package allowed)
 
