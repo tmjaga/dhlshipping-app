@@ -216,7 +216,7 @@ const downloadPDF = (pdfBytes, filename) => {
                             Weight
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Dimentions (w x l x h)
+                            Dimentions <span class="lowercase">(l w h) cm</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Action</span>

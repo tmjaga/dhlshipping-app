@@ -153,7 +153,7 @@ const closeModal = () => {
                                     <div class="flex flex-wrap -mx-3 mb-2">
                                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                             <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="length">
-                                                Length (sm) <span class="font-bold text-red-500">*</span>:
+                                                Length (cm) <span class="font-bold text-red-500">*</span>:
                                             </label>
                                             <input v-model="form.length" id="length" type="text"
                                                    class="w-full outline-none block p-2 text-gray-900 border border-gray-300
@@ -161,7 +161,7 @@ const closeModal = () => {
                                         </div>
                                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                             <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="width">
-                                                Width (sm) <span class="font-bold text-red-500">*</span>:
+                                                Width (cm) <span class="font-bold text-red-500">*</span>:
                                             </label>
                                             <input v-model="form.width" id="width" type="text"
                                                    class="w-full outline-none block p-2 text-gray-900 border border-gray-300
@@ -170,7 +170,7 @@ const closeModal = () => {
                                         </div>
                                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                             <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="height">
-                                                Height (sm) <span class="font-bold text-red-500">*</span>:
+                                                Height (cm) <span class="font-bold text-red-500">*</span>:
                                             </label>
                                             <input v-model="form.height" id="height" type="text"
                                                    class="w-full outline-none block p-2 text-gray-900 border border-gray-300
