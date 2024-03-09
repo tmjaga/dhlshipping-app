@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
 use Carbon\Carbon;
 
 class DhlService
@@ -15,6 +17,7 @@ class DhlService
     {
         $this->client = new Client([
             'headers' => [
+                'Cache-Control' => 'no-cache',
                 'Content-Type' => 'application/json',
                 'Accept' => '*/*',
                 'Authorization' => 'Basic ' . base64_encode("{$config['username']}:{$config['password']}"),
@@ -103,16 +106,21 @@ class DhlService
 
         try {
             $response = $this->client->post($this->url, [
-                'json' => $requestBody,
+                'json' => $requestBody
             ]);
 
             return $response->getBody()->getContents();
 
-        } catch (\Exception $e) {
-            return [
-                'error' => $e->getCode(),
-                'message' => $e->getMessage()
-            ];
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+                $responseData = json_decode($response->getBody(), true);
+
+                return [
+                    'error' => $response->getStatusCode(),
+                    'message' => $responseData
+                ];
+            }
         }
     }
 

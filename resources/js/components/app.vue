@@ -104,9 +104,8 @@ const createShipping = async () => {
         errors.value = {};
 
         if (response.data.error) {
-            toast.error("Error processing request!");
+            throw new Error(response.data.message.detail);
         } else {
-
             pdfData.value = null;
             if(response.data.documents.length) {
                 pdfData.value = response.data.documents;
@@ -121,6 +120,8 @@ const createShipping = async () => {
         // backend form validation errors
         if (error.response && error.response.status == 422) {
             errors.value = error.response.data.errors;
+        } else {
+            toast.error(error.message);
         }
     }).finally(() => {
         loading.value = false;
