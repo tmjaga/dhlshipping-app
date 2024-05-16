@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DhlController;
 
@@ -20,3 +21,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/dhl', [DhlController::class,'makeShipment']);
+
+Route::get('/geocountries', function () {
+    $response = Http::get('http://api.geonames.org/countryInfoJSON', [
+        'username' => 'tmjaga',
+        'style' => 'SHORT'
+    ]);
+
+    return $response->body();
+});
+
+Route::get('/geocities', function (Request $request) {
+    $url = 'http://api.geonames.org/searchJSON?username=tmjaga&featureCode=PPLA&featureCode=PPLC&country='
+        . $request->country .'&style=SHORT&maxRows=1000';
+
+    $response = Http::get($url);
+
+    return $response->body();
+});
+
+Route::get('/geocode', function (Request $request) {
+    $url = 'http://api.geonames.org/postalCodeSearchJSON?username=tmjaga&country='.$request->country.
+        '&placename='.$request->place.'&style=SHORT&maxRows=1';
+
+    $response = Http::get($url);
+
+    return $response->body();
+});

@@ -17,6 +17,7 @@ class ShippingRequest extends FormRequest
         return true;
     }
 
+    /*
     protected function prepareForValidation(): void
     {
         $toValidate = $this->request->all();
@@ -31,6 +32,7 @@ class ShippingRequest extends FormRequest
 
         $this->merge($toValidate);
     }
+    */
 
     /**
      * Get the validation rules that apply to the request.
@@ -43,10 +45,13 @@ class ShippingRequest extends FormRequest
 
             'plannedShippingDateAndTime' => ['required'],
             'packages' => ['filled'],
-
             '*.countryCode' => ['filled'],
-            '*.countryName' => ['filled'],
-            '*.cityName' => ['filled'],
+
+            'shipperDetails.countryName' => ['required'],
+            'receiverDetails.countryName' => ['required'],
+
+            'shipperDetails.cityName' => ['required'],
+            'receiverDetails.cityName' => ['required'],
 
             'shipperDetails.postalCode' => ['required'],
             'receiverDetails.postalCode' => ['required'],
@@ -134,6 +139,21 @@ class ShippingRequest extends FormRequest
                 'required' => 'Shipper Company Name is Required',
                 'max' => 'Shipper Company Name is too long'
             ],
+
+            'shipperDetails.countryName' => [
+                'required' => 'Shipper Country is Required',
+            ],
+            'receiverDetails.countryName' => [
+                'required' => 'Receiver Country is Required',
+            ],
+
+            'shipperDetails.cityName' => [
+                'required' => 'Shipper City is Required',
+            ],
+            'receiverDetails.cityName' => [
+                'required' => 'Receiver City is Required',
+            ],
+
         ];
     }
 

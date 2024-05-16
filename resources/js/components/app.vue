@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, onMounted, provide, ref} from "vue";
 import axios from "axios";
 import ShippingItemModal from '@/components/ShippingItemModal.vue'
 import CustomerDetails from '@/components/CustomerDetails.vue'
@@ -16,13 +16,18 @@ const showResult = ref(false);
 const toast = useToast()
 const pdfData = ref(null);
 const trackingNumber = ref(null);
+const geoCountries = ref([]);
+
+const makeResetForm = ref(false)
 
 const getInitialShippingData = () => {
        shipping.value = {
             plannedShippingDateAndTime: '',
             shipperDetails: {
-                postalCode: null,
+                countryCode: '',
+                countryName: '',
                 cityName: '',
+                postalCode: null,
                 addressLine1: '',
                 email: '',
                 phone: '',
@@ -31,8 +36,10 @@ const getInitialShippingData = () => {
                 fullName: ''
             },
             receiverDetails: {
-                postalCode: null,
+                countryCode: '',
+                countryName: '',
                 cityName: '',
+                postalCode: null,
                 addressLine1: '',
                 email: '',
                 phone: '',
@@ -56,12 +63,14 @@ const showShipingModal = () => {
 }
 
 const resetForm = (all) => {
-    errors.value = {};
+    errors.value = {}
     getInitialShippingData();
 
     if (all) {
-        showResult.value = false;
+        showResult.value = false
     }
+
+    makeResetForm.value = true
 }
 
 const removeItem = (i) => {
@@ -88,9 +97,11 @@ const dateTransformer = (data) => {
 };
 
 const createShipping = async () => {
-    showResult.value = false;
+    showResult.value = false
+    makeResetForm.value = false
+
     if (shipping.value.packages.length == 0) {
-        toast.error("Please add at least one package");
+        toast.error("Please add at least one package")
         return
     }
     loading.value = true;
@@ -153,11 +164,22 @@ const downloadPDF = (pdfBytes, filename) => {
     link.click();
 }
 
+const loadCountries = async () => {
+    try {
+        const response = await axios.get('/api/geocountries');
+        geoCountries.value = response.data.geonames;
+    } catch (error) {
+        console.error('Error loading geoCountries:', error);
+    }
+};
+
+onMounted(loadCountries)
+provide('makeResetForm', makeResetForm);
+
 </script>
 
 <template>
     <div class="container mx-auto mb-3">
-
         <Panel header="New Shipping">
             <p class="m-0">
                 <label for="shsipping-date" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Shipping Date</label>
@@ -194,10 +216,10 @@ const downloadPDF = (pdfBytes, filename) => {
             <p v-if="(errors && errors.plannedShippingDateAndTime)" class="mt-2 text-xs text-red-500">{{ errors.plannedShippingDateAndTime }}</p>
             <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-2 mt-5">
                 <div class="w-full">
-                    <CustomerDetails :errors="errors.shipperDetails" :formData="shipping.shipperDetails"/>
+                    <CustomerDetails :geoCountries="geoCountries" :errors="errors.shipperDetails" :formData="shipping.shipperDetails"/>
                 </div>
                 <div class="w-full">
-                    <CustomerDetails :errors="errors.receiverDetails" :formData="shipping.receiverDetails"/>
+                    <CustomerDetails :geoCountries="geoCountries" :errors="errors.receiverDetails" :formData="shipping.receiverDetails"/>
                 </div>
             </div>
         </Panel>
